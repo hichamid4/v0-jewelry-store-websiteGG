@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Gem, ArrowLeft } from "lucide-react"
 import { ProductGrid } from "@/components/product-grid"
 import { ProductFilters } from "@/components/product-filters"
+import { Suspense } from "react"
 
 interface SearchParams {
   search?: string
@@ -91,7 +92,9 @@ export default async function ProductsPage({
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
           <div className="lg:w-80">
-            <ProductFilters categories={categories} materials={materials} searchParams={searchParams} />
+            <Suspense fallback={<div className="animate-pulse bg-gray-200 h-96 rounded-lg"></div>}>
+              <ProductFilters categories={categories} materials={materials} searchParams={searchParams} />
+            </Suspense>
           </div>
 
           {/* Products Grid */}

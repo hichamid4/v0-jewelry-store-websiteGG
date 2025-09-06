@@ -4,6 +4,7 @@ import { ProductGrid } from "@/components/product-grid"
 import { Gem } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { Suspense } from "react"
 
 interface SearchParams {
   category?: string
@@ -103,8 +104,9 @@ export default async function ShopPage({
           <p className="text-gray-600">{products?.length || 0} products found</p>
         </div>
 
-        {/* Horizontal Filters */}
-        <ProductFilters categories={categories} models={models} materials={materials} searchParams={searchParams} />
+        <Suspense fallback={<div className="animate-pulse bg-gray-200 h-64 rounded-lg mb-8"></div>}>
+          <ProductFilters categories={categories} models={models} materials={materials} searchParams={searchParams} />
+        </Suspense>
 
         {/* Products Grid */}
         <ProductGrid products={products || []} />
